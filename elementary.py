@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 from time import sleep
 import argparse
+import sys
 
 
 def is_binary_string(string):
@@ -64,4 +65,7 @@ parser.add_argument("-p", "--pad-left", default=0, help="pads the initial state 
 
 if __name__ == "__main__":
     args = parser.parse_args()
-    main(args)
+    try:
+        main(args)
+    except KeyboardInterrupt:
+        sys.exit(0)

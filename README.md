@@ -37,7 +37,6 @@ Currently only implements [Rule 110](https://en.wikipedia.org/wiki/Rule_110) and
 **Todo:**
 - allow setting the initial iteration that should actually be output
    --range 0 1000 = show-from show-to
-- can we prevent vomiting an error when quitting (^CTraceback (most recent call last):
 - optionally write out the generation count beside the ouput... XX X XX X |2541
 - allow setting the off and on characters (e.g. X) so can use emoji output
 - allow outputting to image e.g. -output 110.png (only valid when capped number iterations via range)
