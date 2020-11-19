@@ -17,8 +17,8 @@ optional arguments:
   -p PAD_LEFT, --pad-left PAD_LEFT
                         pads the initial state (wtih zeroes) to this length (e.g. --pad-left=20)
   --counter             show the iteration count
-  --off OFF             character to show when a cell is off (e.g. default is a blank space)
-  --on ON               character to show when a cell is on (e.g. default is X)
+  --off OFF             character to show when a cell is off (default is a blank space)
+  --on ON               character to show when a cell is on (default is X)
 ```
 **Example:** Set the initial state (19 zeros and a one):
 ```
