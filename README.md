@@ -35,10 +35,12 @@ Example using command line parameters to set the initial state (19 zeros and a o
 Currently only implements [Rule 110](https://en.wikipedia.org/wiki/Rule_110) and renders to console.
 
 **Todo:**
+- allow setting the off and on characters (e.g. X) so can use emoji output
+- optionally write out the generation count beside the ouput... XX X XX X |2541
 - allow setting the initial iteration that should actually be output
    --range 0 1000 = show-from show-to
-- optionally write out the generation count beside the ouput... XX X XX X |2541
-- allow setting the off and on characters (e.g. X) so can use emoji output
 - allow outputting to image e.g. -output 110.png (only valid when capped number iterations via range)
-- allow setting the rule to use e.g. -rule 110
+- allow setting the rule to use e.g. -rule 110 (include a prompt when run w/o params)
 - move from strings to integer arrays and possibly binary to be ⚡️?
+- add a --delay option to set the delay between iterations when doing console output
+- add a --stats flag that outputs the number of iterations and how long it took to run (only makes sense w/ 0 delay...)
