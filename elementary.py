@@ -43,7 +43,7 @@ def main(args):
     # initial state
     state = args.state
     while not state or not is_binary_string(state):
-        state = input('🤖 Enter an initial string of ones and zeroes: ')
+        state = input('🤖 Enter an initial string of ones and zeroes:\n')
 
     # left padding initial state
     required_padding = max(args.pad_left - len(state), 0)
