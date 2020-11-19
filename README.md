@@ -19,8 +19,9 @@ optional arguments:
   --off OFF             character to show when a cell is off (default is a blank space)
   --on ON               character to show when a cell is on (default is X)
 ```
-Example: Set the initial state (19 zeros and a one): `./elementary.py --state 1 --pad-left 20`
+Example: Set the initial state (19 zeros and a one):
 ```
+./elementary.py --state 1 --pad-left 20
                    X
                   XX
                  XXX
@@ -32,8 +33,9 @@ Example: Set the initial state (19 zeros and a one): `./elementary.py --state 1 
            XXXXXXX X
           XX     XXX
 ```
-Example: Emoji `./elementary.py -s 1 -p 20 --on=🌳 --off=🌲`
+Example: Emojis
 ```
+./elementary.py -s 1 -p 20 --on=🌳 --off=🌲
 🌲🌲🌲🌲🌲🌲🌲🌲🌲🌲🌲🌲🌲🌲🌲🌲🌲🌲🌲🌳
 🌲🌲🌲🌲🌲🌲🌲🌲🌲🌲🌲🌲🌲🌲🌲🌲🌲🌲🌳🌳
 🌲🌲🌲🌲🌲🌲🌲🌲🌲🌲🌲🌲🌲🌲🌲🌲🌲🌳🌳🌳
@@ -55,8 +57,9 @@ Example: Emoji `./elementary.py -s 1 -p 20 --on=🌳 --off=🌲`
 🌲🌳🌳🌳🌲🌲🌲🌲🌲🌳🌳🌲🌲🌳🌲🌳🌳🌳🌳🌳
 🌳🌳🌲🌳🌲🌲🌲🌲🌳🌳🌳🌲🌳🌳🌳🌳🌲🌲🌲🌳
 ```
-Example: More emoji `./elementary.py -s 1 -p 20 --on=🐙 --off=💦`
+Example: More emojis
 ```
+./elementary.py -s 1 -p 20 --on=🐙 --off=💦
 💦💦💦💦💦💦💦💦💦💦💦💦💦💦💦💦💦💦💦🐙
 💦💦💦💦💦💦💦💦💦💦💦💦💦💦💦💦💦💦🐙🐙
 💦💦💦💦💦💦💦💦💦💦💦💦💦💦💦💦💦🐙🐙🐙
