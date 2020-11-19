@@ -16,8 +16,8 @@ optional arguments:
                         set the initial state (e.g. --state 01101110)
   -p PAD_LEFT, --pad-left PAD_LEFT
                         pads the initial state (wtih zeroes) to this length (e.g. --pad-left=20)
-  --off OFF             character to show when a cell is off (e.g. default is a blank space)
-  --on ON               character to show when a cell is on (e.g. default is X)
+  --off OFF             character to show when a cell is off (default is a blank space)
+  --on ON               character to show when a cell is on (default is X)
 ```
 Example: Set the initial state (19 zeros and a one): `./elementary.py --state 1 --pad-left 20`
 ```
@@ -32,7 +32,7 @@ Example: Set the initial state (19 zeros and a one): `./elementary.py --state 1 
            XXXXXXX X
           XX     XXX
 ```
-Example: Emojis `./elementary.py -s 1 -p 20 --on=🌳 --off=🌲`
+Example: Emoji `./elementary.py -s 1 -p 20 --on=🌳 --off=🌲`
 ```
 🌲🌲🌲🌲🌲🌲🌲🌲🌲🌲🌲🌲🌲🌲🌲🌲🌲🌲🌲🌳
 🌲🌲🌲🌲🌲🌲🌲🌲🌲🌲🌲🌲🌲🌲🌲🌲🌲🌲🌳🌳
@@ -55,7 +55,7 @@ Example: Emojis `./elementary.py -s 1 -p 20 --on=🌳 --off=🌲`
 🌲🌳🌳🌳🌲🌲🌲🌲🌲🌳🌳🌲🌲🌳🌲🌳🌳🌳🌳🌳
 🌳🌳🌲🌳🌲🌲🌲🌲🌳🌳🌳🌲🌳🌳🌳🌳🌲🌲🌲🌳
 ```
-Example: Emojis 2 `./elementary.py -s 1 -p 20 --on=🐙 --off=💦`
+Example: More emoji `./elementary.py -s 1 -p 20 --on=🐙 --off=💦`
 ```
 💦💦💦💦💦💦💦💦💦💦💦💦💦💦💦💦💦💦💦🐙
 💦💦💦💦💦💦💦💦💦💦💦💦💦💦💦💦💦💦🐙🐙
@@ -79,18 +79,17 @@ Example: Emojis 2 `./elementary.py -s 1 -p 20 --on=🐙 --off=💦`
 🐙🐙💦🐙💦💦💦💦🐙🐙🐙💦🐙🐙🐙🐙💦💦💦🐙
 ```
 
-
 ### Status and todo
 
 Currently only implements [Rule 110](https://en.wikipedia.org/wiki/Rule_110) and renders to console.
 
 **Todo:**
-- when asking for initial state, inline linebreak
 - optionally write out the generation count beside the ouput... XX X XX X |2541
 - allow setting the initial iteration that should actually be output
    --range 0 1000 = show-from show-to
+- add a --delay option to set the delay between iterations when doing console output
+- add a --stats flag that outputs the number of iterations and how long it took to run (only makes sense w/ 0 delay...)
+- add a --no-wrap flag that treats cells beyond the edges as off instead of wrapping around
 - allow outputting to image e.g. -output 110.png (only valid when capped number iterations via range)
 - allow setting the rule to use e.g. -rule 110 (include a prompt when run w/o params)
 - move from strings to integer arrays and possibly binary to be ⚡️?
-- add a --delay option to set the delay between iterations when doing console output
-- add a --stats flag that outputs the number of iterations and how long it took to run (only makes sense w/ 0 delay...)
