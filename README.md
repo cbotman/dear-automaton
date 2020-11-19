@@ -8,7 +8,7 @@ The current implementation stores and manipulates state as a string, which is as
 
 Run `./elementary.py` and follow the prompts, or run `./elementary.py -h` for help:
 ```
-usage: elementary.py [-h] [-s STATE] [-p PAD_LEFT]
+usage: elementary.py [-h] [-s STATE] [-p PAD_LEFT] [--off OFF] [--on ON]
 
 optional arguments:
   -h, --help            show this help message and exit
@@ -16,6 +16,8 @@ optional arguments:
                         set the initial state (e.g. --state 01101110)
   -p PAD_LEFT, --pad-left PAD_LEFT
                         pads the initial state (wtih zeroes) to this length (e.g. --pad-left=20)
+  --off OFF             character to show when a cell is off (e.g. default is a blank space)
+  --on ON               character to show when a cell is on (e.g. default is X)
 ```
 Example: Set the initial state (19 zeros and a one): `./elementary.py --state 1 --pad-left 20`
 ```
@@ -28,6 +30,7 @@ Example: Set the initial state (19 zeros and a one): `./elementary.py --state 1 
              XXX  XX
             XX X XXX
            XXXXXXX X
+          XX     XXX
 ```
 Example: Emojis `./elementary.py -s 1 -p 20 --on=🌳 --off=🌲`
 ```
