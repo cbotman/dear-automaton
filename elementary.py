@@ -59,11 +59,10 @@ def main(args):
 
     # loop
     generation = 0
-    render(state, generation if args.counter else -1, off_char, on_char)
     while True:
+        render(state, generation if args.counter else -1, off_char, on_char)
         state = update_state(state)
         generation = generation + 1
-        render(state, generation if args.counter else -1, off_char, on_char)
         sleep(0.25)
 
 
