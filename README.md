@@ -8,7 +8,7 @@ The current implementation stores and manipulates state as a string, which is as
 
 Run `./elementary.py` and follow the prompts, or run `./elementary.py -h` for help:
 ```
-usage: elementary.py [-h] [-s STATE] [-p PAD_LEFT] [--counter] [--off OFF] [--on ON]
+usage: elementary.py [-h] [-s STATE] [-p PAD_LEFT] [-d DELAY] [--counter] [--off OFF] [--on ON]
 
 optional arguments:
   -h, --help            show this help message and exit
@@ -16,9 +16,11 @@ optional arguments:
                         set the initial state (e.g. --state 01101110)
   -p PAD_LEFT, --pad-left PAD_LEFT
                         pads the initial state (wtih zeroes) to this length (e.g. --pad-left=20)
+  -d DELAY, --delay DELAY
+                        delay between displaying each generation in milliseconds
   --counter             show the iteration count
-  --off OFF             character to show when a cell is off (default is a blank space)
-  --on ON               character to show when a cell is on (default is X)
+  --off OFF             character to show when a cell is off (e.g. default is a blank space)
+  --on ON               character to show when a cell is on (e.g. default is X)
 ```
 **Example:** Set the initial state (19 zeros and a one):
 ```
@@ -103,9 +105,8 @@ Currently only implements [Rule 110](https://en.wikipedia.org/wiki/Rule_110) and
 - allow setting the initial iteration that should actually be output
    --range 0 1000 = show-from show-to
 - add a --random param for generating an initial state of length X (makes padding moot)
-- add a --delay option to set the delay between iterations when doing console output
 - add a --stats flag that outputs the number of iterations and how long it took to run (only makes sense w/ 0 delay...)
 - add a --no-wrap flag that treats cells beyond the edges as off instead of wrapping around
-- allow outputting to image e.g. -output 110.png (only valid when capped number iterations via range)
 - allow setting the rule to use e.g. -rule 110 (include a prompt when run w/o params)
-- move from strings to integer arrays and possibly binary to be ⚡️?
+- allow outputting to image e.g. -output 110.png (only valid when capped number iterations via range)
+- move from strings to integer arrays and then bytes to be ⚡️?

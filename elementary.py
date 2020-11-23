@@ -59,17 +59,20 @@ def main(args):
 
     # loop
     generation = 0
+    delay = args.delay / 1000
     while True:
         render(state, generation if args.counter else -1, off_char, on_char)
         state = update_state(state)
         generation = generation + 1
-        sleep(0.25)
+        sleep(delay)
 
 
 parser = argparse.ArgumentParser()
 parser.add_argument('-s', '--state', help='set the initial state (e.g. --state 01101110)', type=str)
 parser.add_argument('-p', '--pad-left', default=0, help='pads the initial state (wtih zeroes) to this length '
                                                         '(e.g. --pad-left=20)', type=int)
+parser.add_argument('-d', '--delay', default=250, help='delay between displaying each generation in milliseconds',
+                    type=int)
 parser.add_argument('--counter', dest='counter', action='store_true', help='show the iteration count')
 parser.set_defaults(counter=False)
 parser.add_argument('--off', help='character to show when a cell is off (e.g. default is a blank space)', default=' ',
