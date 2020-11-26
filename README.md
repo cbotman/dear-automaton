@@ -8,7 +8,7 @@ The current implementation stores and manipulates state as a string, which is as
 
 Run `./elementary.py` and follow the prompts, or run `./elementary.py -h` for help:
 ```
-usage: elementary.py [-h] [-s STATE] [-p PAD_LEFT] [-d DELAY] [--counter] [--off OFF] [--on ON]
+usage: elementary.py [-h] [-s STATE] [-p PAD_LEFT] [-d DELAY] [--counter] [--off OFF] [--on ON] [-r RANDOM] [--seed SEED]
 
 optional arguments:
   -h, --help            show this help message and exit
@@ -21,6 +21,9 @@ optional arguments:
   --counter             show the iteration count
   --off OFF             character to show when a cell is off (e.g. default is a blank space)
   --on ON               character to show when a cell is on (e.g. default is X)
+  -r RANDOM, --random RANDOM
+                        generate random starting state of N length
+  --seed SEED           set the base seed for the random number generator
 ```
 **Example:** Set the initial state (19 zeros and a one):
 ```
@@ -96,6 +99,25 @@ optional arguments:
 XXXXXXXXXX|4
           |5
 ```
+**Example:** Use `--random` to create a random started state of the given length. Use `--seed` to set the random number generator's base seed and reproduce the same random number series.
+```
+./elementary.py --random 10 --seed 123 --pad 20 --counter
+          XXX  XX X |0
+         XX X XXXXX |1
+        XXXXXXX   X |2
+       XX     X  XX |3
+      XXX    XX XXX |4
+     XX X   XXXXX X |5
+
+./elementary.py --random 15 --seed 123 --pad 20 --counter
+     XX   XXX  XX X |0
+    XXX  XX X XXXXX |1
+   XX X XXXXXXX   X |2
+  XXXXXXX     X  XX |3
+ XX     X    XX XXX |4
+XXX    XX   XXXXX X |5
+
+```
 
 ### Status and todo
 
@@ -104,7 +126,6 @@ Currently only implements [Rule 110](https://en.wikipedia.org/wiki/Rule_110) and
 **Todo:**
 - allow setting the initial iteration that should actually be output
    --range 0 1000 = show-from show-to
-- add a --random param for generating an initial state of length X (makes padding moot)
 - add a --stats flag that outputs the number of iterations and how long it took to run (only makes sense w/ 0 delay...)
 - add a --no-wrap flag that treats cells beyond the edges as off instead of wrapping around
 - allow setting the rule to use e.g. -rule 110 (include a prompt when run w/o params)

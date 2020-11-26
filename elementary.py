@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 from time import sleep
 import argparse
+import random
 import sys
 
 
@@ -43,8 +44,19 @@ def render(value, generation, off_char, on_char):
 
 
 def main(args):
+    # validate args
+    if args.state is not None and args.random is not None:
+        sys.exit('🤖🔥 Error: Do not set --state and --random at the same time.')
+
     # initial state
-    state = args.state
+    state = ''
+    if args.state is not None:
+        state = args.state
+    elif args.random is not None:
+        if args.seed is not None:
+            random.seed(args.seed)
+        for i in range(0, args.random):
+            state = str(random.randint(0, 1)) + state
     while not state or not is_binary_string(state):
         state = input('🤖 Enter an initial string of ones and zeroes:\n')
 
@@ -79,6 +91,8 @@ parser.add_argument('--off', help='character to show when a cell is off (e.g. de
                     type=str)
 parser.add_argument('--on', help='character to show when a cell is on (e.g. default is X)', default='X',
                     type=str)
+parser.add_argument('-r', '--random', help='generate random starting state of N length', type=int)
+parser.add_argument('--seed', help='set the base seed for the random number generator', type=int)
 
 if __name__ == '__main__':
     args = parser.parse_args()
