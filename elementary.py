@@ -26,14 +26,18 @@ def get_value(l, c, r):
     return rules[l + c + r]
 
 
-def update_state(state):
-    value = ''
+def update_state(state, wrap):
+    new_state = ''
     for i in range(0, len(state)):
-        l = state[i - 1] if (i > 0) else state[len(state) - 1]  # wraps
-        c = state[i]
-        r = state[i + 1] if (i + 1 < len(state)) else state[0]  # wraps
-        value += get_value(l, c, r)
-    return value
+        center_cell = state[i]
+        if wrap:
+            left_cell = state[i - 1] if (i > 0) else state[len(state) - 1]  # wraps
+            right_cell = state[i + 1] if (i + 1 < len(state)) else state[0]  # wraps
+        else:
+            left_cell = state[i - 1] if (i > 0) else '0'  # no-wrap
+            right_cell = state[i + 1] if (i + 1 < len(state)) else '0'  # no-wrap
+        new_state += get_value(left_cell, center_cell, right_cell)
+    return new_state
 
 
 def render(value, generation, off_char, on_char):
@@ -69,12 +73,15 @@ def main(args):
     off_char = args.off[0]
     on_char = args.on[0]
 
+    # wrapping
+    wrap = args.wrap
+
     # loop
     generation = 0
     delay = args.delay / 1000
     while True:
         render(state, generation if args.counter else -1, off_char, on_char)
-        state = update_state(state)
+        state = update_state(state, wrap)
         generation = generation + 1
         sleep(delay)
 
@@ -93,6 +100,8 @@ parser.add_argument('--on', help='character to show when a cell is on (e.g. defa
                     type=str)
 parser.add_argument('-r', '--random', help='generate random starting state of N length', type=int)
 parser.add_argument('--seed', help='set the base seed for the random number generator', type=int)
+parser.add_argument('--no-wrap', dest='wrap', action='store_false', help='prevent edges wrapping')
+parser.set_defaults(wrap=True)
 
 if __name__ == '__main__':
     args = parser.parse_args()

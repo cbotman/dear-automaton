@@ -8,7 +8,7 @@ The current implementation stores and manipulates state as a string, which is as
 
 Run `./elementary.py` and follow the prompts, or run `./elementary.py -h` for help:
 ```
-usage: elementary.py [-h] [-s STATE] [-p PAD_LEFT] [-d DELAY] [--counter] [--off OFF] [--on ON] [-r RANDOM] [--seed SEED]
+usage: elementary.py [-h] [-s STATE] [-p PAD_LEFT] [-d DELAY] [--counter] [--off OFF] [--on ON] [-r RANDOM] [--seed SEED] [--no-wrap]
 
 optional arguments:
   -h, --help            show this help message and exit
@@ -24,6 +24,7 @@ optional arguments:
   -r RANDOM, --random RANDOM
                         generate random starting state of N length
   --seed SEED           set the base seed for the random number generator
+  --no-wrap             prevent edges wrapping
 ```
 **Example:** Set the initial state (19 zeros and a one):
 ```
@@ -41,27 +42,27 @@ optional arguments:
 ```
 **Example:** Emojis
 ```
-./elementary.py -s 1 -p 20 --on=🌳 --off=🌲
-🌲🌲🌲🌲🌲🌲🌲🌲🌲🌲🌲🌲🌲🌲🌲🌲🌲🌲🌲🌳
-🌲🌲🌲🌲🌲🌲🌲🌲🌲🌲🌲🌲🌲🌲🌲🌲🌲🌲🌳🌳
-🌲🌲🌲🌲🌲🌲🌲🌲🌲🌲🌲🌲🌲🌲🌲🌲🌲🌳🌳🌳
-🌲🌲🌲🌲🌲🌲🌲🌲🌲🌲🌲🌲🌲🌲🌲🌲🌳🌳🌲🌳
-🌲🌲🌲🌲🌲🌲🌲🌲🌲🌲🌲🌲🌲🌲🌲🌳🌳🌳🌳🌳
-🌲🌲🌲🌲🌲🌲🌲🌲🌲🌲🌲🌲🌲🌲🌳🌳🌲🌲🌲🌳
-🌲🌲🌲🌲🌲🌲🌲🌲🌲🌲🌲🌲🌲🌳🌳🌳🌲🌲🌳🌳
-🌲🌲🌲🌲🌲🌲🌲🌲🌲🌲🌲🌲🌳🌳🌲🌳🌲🌳🌳🌳
-🌲🌲🌲🌲🌲🌲🌲🌲🌲🌲🌲🌳🌳🌳🌳🌳🌳🌳🌲🌳
-🌲🌲🌲🌲🌲🌲🌲🌲🌲🌲🌳🌳🌲🌲🌲🌲🌲🌳🌳🌳
-🌲🌲🌲🌲🌲🌲🌲🌲🌲🌳🌳🌳🌲🌲🌲🌲🌳🌳🌲🌳
-🌲🌲🌲🌲🌲🌲🌲🌲🌳🌳🌲🌳🌲🌲🌲🌳🌳🌳🌳🌳
-🌲🌲🌲🌲🌲🌲🌲🌳🌳🌳🌳🌳🌲🌲🌳🌳🌲🌲🌲🌳
-🌲🌲🌲🌲🌲🌲🌳🌳🌲🌲🌲🌳🌲🌳🌳🌳🌲🌲🌳🌳
-🌲🌲🌲🌲🌲🌳🌳🌳🌲🌲🌳🌳🌳🌳🌲🌳🌲🌳🌳🌳
-🌲🌲🌲🌲🌳🌳🌲🌳🌲🌳🌳🌲🌲🌳🌳🌳🌳🌳🌲🌳
-🌲🌲🌲🌳🌳🌳🌳🌳🌳🌳🌳🌲🌳🌳🌲🌲🌲🌳🌳🌳
-🌲🌲🌳🌳🌲🌲🌲🌲🌲🌲🌳🌳🌳🌳🌲🌲🌳🌳🌲🌳
-🌲🌳🌳🌳🌲🌲🌲🌲🌲🌳🌳🌲🌲🌳🌲🌳🌳🌳🌳🌳
-🌳🌳🌲🌳🌲🌲🌲🌲🌳🌳🌳🌲🌳🌳🌳🌳🌲🌲🌲🌳
+./elementary.py -s 1 -p 20 --on=🌲 --off=🍂
+🍂🍂🍂🍂🍂🍂🍂🍂🍂🍂🍂🍂🍂🍂🍂🍂🍂🍂🍂🌲
+🍂🍂🍂🍂🍂🍂🍂🍂🍂🍂🍂🍂🍂🍂🍂🍂🍂🍂🌲🌲
+🍂🍂🍂🍂🍂🍂🍂🍂🍂🍂🍂🍂🍂🍂🍂🍂🍂🌲🌲🌲
+🍂🍂🍂🍂🍂🍂🍂🍂🍂🍂🍂🍂🍂🍂🍂🍂🌲🌲🍂🌲
+🍂🍂🍂🍂🍂🍂🍂🍂🍂🍂🍂🍂🍂🍂🍂🌲🌲🌲🌲🌲
+🍂🍂🍂🍂🍂🍂🍂🍂🍂🍂🍂🍂🍂🍂🌲🌲🍂🍂🍂🌲
+🍂🍂🍂🍂🍂🍂🍂🍂🍂🍂🍂🍂🍂🌲🌲🌲🍂🍂🌲🌲
+🍂🍂🍂🍂🍂🍂🍂🍂🍂🍂🍂🍂🌲🌲🍂🌲🍂🌲🌲🌲
+🍂🍂🍂🍂🍂🍂🍂🍂🍂🍂🍂🌲🌲🌲🌲🌲🌲🌲🍂🌲
+🍂🍂🍂🍂🍂🍂🍂🍂🍂🍂🌲🌲🍂🍂🍂🍂🍂🌲🌲🌲
+🍂🍂🍂🍂🍂🍂🍂🍂🍂🌲🌲🌲🍂🍂🍂🍂🌲🌲🍂🌲
+🍂🍂🍂🍂🍂🍂🍂🍂🌲🌲🍂🌲🍂🍂🍂🌲🌲🌲🌲🌲
+🍂🍂🍂🍂🍂🍂🍂🌲🌲🌲🌲🌲🍂🍂🌲🌲🍂🍂🍂🌲
+🍂🍂🍂🍂🍂🍂🌲🌲🍂🍂🍂🌲🍂🌲🌲🌲🍂🍂🌲🌲
+🍂🍂🍂🍂🍂🌲🌲🌲🍂🍂🌲🌲🌲🌲🍂🌲🍂🌲🌲🌲
+🍂🍂🍂🍂🌲🌲🍂🌲🍂🌲🌲🍂🍂🌲🌲🌲🌲🌲🍂🌲
+🍂🍂🍂🌲🌲🌲🌲🌲🌲🌲🌲🍂🌲🌲🍂🍂🍂🌲🌲🌲
+🍂🍂🌲🌲🍂🍂🍂🍂🍂🍂🌲🌲🌲🌲🍂🍂🌲🌲🍂🌲
+🍂🌲🌲🌲🍂🍂🍂🍂🍂🌲🌲🍂🍂🌲🍂🌲🌲🌲🌲🌲
+🌲🌲🍂🌲🍂🍂🍂🍂🌲🌲🌲🍂🌲🌲🌲🌲🍂🍂🍂🌲
 ```
 **Example:** More emojis
 ```
@@ -116,7 +117,18 @@ XXXXXXXXXX|4
   XXXXXXX     X  XX |3
  XX     X    XX XXX |4
 XXX    XX   XXXXX X |5
+```
+**Example:** Use `--no-wrap` to prevent edges from wrapping. Compare the output of the 20th generation.
+```
+./elementary.py -s 1 -p 20 --counter
+XX X    XXX XXXX   X|19
+ XXX   XX XXX  X  XX|20
+XX X  XXXXX X XX XXX|21
 
+ ./elementary.py -s 1 -p 20 --counter --no-wrap
+XX X    XXX XXXX   X|19
+XXXX   XX XXX  X  XX|20
+X  X  XXXXX X XX XXX|21
 ```
 
 ### Status and todo
@@ -124,12 +136,13 @@ XXX    XX   XXXXX X |5
 Currently only implements [Rule 110](https://en.wikipedia.org/wiki/Rule_110) and renders to console.
 
 **Todo:**
-- allow piping in the initial state. e.g. 000010 | elementary.py and ./elementary.py 000010 
+- allow setting the rule to use e.g. -rule 110 (include a prompt when run w/o params)
 - allow setting the initial iteration that should actually be output
    --range 0 1000 = show-from show-to
 - add a --stats flag that outputs the number of iterations and how long it took to run (only makes sense w/ 0 delay...)
-- add a --no-wrap flag that treats cells beyond the edges as off instead of wrapping around
-- allow setting the rule to use e.g. -rule 110 (include a prompt when run w/o params)
+- allow piping in the initial state. e.g. 000010 | elementary.py and ./elementary.py 000010 
+- allow saving state to file and resuming from save (periodically or when exit). 
+    this would be more like a json blob that includes recent history, and not just the last generation
 - allow outputting to image e.g. -output 110.png (only valid when capped number iterations via range)
 - move from strings to integer arrays and then bytes to be ⚡️?
 - add a flag to exit if pattern stabilises (repeats itself indefinitely) (e.g. --limit-repeats 3). need an associated parameter to set how much history to keep in memory.
