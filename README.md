@@ -8,27 +8,27 @@ The current implementation stores and manipulates state as a string, which is as
 
 Run `./elementary.py` and follow the prompts, or run `./elementary.py -h` for help:
 ```
-usage: elementary.py [-h] [-s STATE] [-p PAD_LEFT] [-d DELAY] [--counter] [--off OFF] [--on ON] [-r RANDOM] [--seed SEED] [--no-wrap]
+usage: elementary.py [-h] [-r RULE] [-s STATE] [-p PAD] [-d {left,right,both}] [--delay DELAY] [--counter] [--off OFF] [--on ON] [--random RANDOM] [--seed SEED] [--no-wrap]
 
 optional arguments:
   -h, --help            show this help message and exit
+  -r RULE, --rule RULE  set the rule to use (between 0 to 255, inclusive). defaults to rule 110
   -s STATE, --state STATE
                         set the initial state (e.g. --state 01101110)
-  -p PAD_LEFT, --pad-left PAD_LEFT
-                        pads the initial state (wtih zeroes) to this length (e.g. --pad-left=20)
-  -d DELAY, --delay DELAY
-                        delay between displaying each generation in milliseconds
+  -p PAD, --pad PAD     pads the initial state (with zeroes) to this length (e.g. --pad=20)
+  -d {left,right,both}, --pad-dir {left,right,both}
+                        sets how to apply padding (left, right, or both)
+  --delay DELAY         delay between displaying each generation in milliseconds (defaults to 250 ms)
   --counter             show the iteration count
-  --off OFF             character to show when a cell is off (e.g. default is a blank space)
-  --on ON               character to show when a cell is on (e.g. default is X)
-  -r RANDOM, --random RANDOM
-                        generate random starting state of N length
+  --off OFF             character to show when a cell is off (defaults to a blank space)
+  --on ON               character to show when a cell is on (defaults to X)
+  --random RANDOM       generate random starting state of N length
   --seed SEED           set the base seed for the random number generator
   --no-wrap             prevent edges wrapping
 ```
 **Example:** Set the initial state (19 zeros and a one):
 ```
-./elementary.py --state 1 --pad-left 20
+./elementary.py --state 1 --pad 20
                    X
                   XX
                  XXX
@@ -88,6 +88,30 @@ optional arguments:
 💦🐙🐙🐙💦💦💦💦💦🐙🐙💦💦🐙💦🐙🐙🐙🐙🐙
 🐙🐙💦🐙💦💦💦💦🐙🐙🐙💦🐙🐙🐙🐙💦💦💦🐙
 ```
+**Example:** Use `--rule` to set the rule (any value from 0 to 255), and use --pad and --pad-dir to quickly set your starting state.
+```
+./elementary.py --state 1 --rule 30 --no-wrap --pad 20 --pad-dir left
+                   X
+                  XX
+                 XX 
+                XX X
+               XX  X
+
+./elementary.py --state 1 --rule 30 --no-wrap --pad 20 --pad-dir right
+X                   
+XX                  
+X X                 
+X XX                
+X X X               
+
+./elementary.py --state 1 --rule 30 --no-wrap --pad 20 --pad-dir both 
+          X         
+         XXX        
+        XX  X       
+       XX XXXX      
+      XX  X   X     
+```
+
 **Example:** Use `--counter` to output the number of iterations/generations.
 ```
 ./elementary.py --counter 
@@ -136,7 +160,7 @@ X  X  XXXXX X XX XXX|21
 Currently only implements [Rule 110](https://en.wikipedia.org/wiki/Rule_110) and renders to console.
 
 **Todo:**
-- allow setting the rule to use e.g. -rule 110 (include a prompt when run w/o params)
+- add a --random-rule flag to pick a random rule between 0 and 255
 - allow setting the initial iteration that should actually be output
    --range 0 1000 = show-from show-to
 - add a --stats flag that outputs the number of iterations and how long it took to run (only makes sense w/ 0 delay...)
