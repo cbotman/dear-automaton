@@ -8,7 +8,7 @@ The current implementation stores and manipulates state as a string, which is as
 
 Run `./elementary.py` and follow the prompts, or run `./elementary.py -h` for help:
 ```
-usage: elementary.py [-h] [-r RULE] [-s STATE] [-p PAD] [-d {left,right,both}] [--delay DELAY] [--counter] [--off OFF] [--on ON] [--random RANDOM] [--seed SEED] [--no-wrap]
+usage: elementary.py [-h] [-r RULE] [-s STATE] [-p PAD] [-d {left,right,both}] [--delay DELAY] [--counter] [--off OFF] [--on ON] [--random RANDOM] [--random-rule] [--seed SEED] [--no-wrap]
 
 optional arguments:
   -h, --help            show this help message and exit
@@ -23,6 +23,7 @@ optional arguments:
   --off OFF             character to show when a cell is off (defaults to a blank space)
   --on ON               character to show when a cell is on (defaults to X)
   --random RANDOM       generate random starting state of N length
+  --random-rule         pick a rule at random
   --seed SEED           set the base seed for the random number generator
   --no-wrap             prevent edges wrapping
 ```
@@ -142,6 +143,18 @@ XXXXXXXXXX|4
  XX     X    XX XXX |4
 XXX    XX   XXXXX X |5
 ```
+**Example:** Use `--random-rule` to pick a rule at random.
+```
+./elementary.py --random-rule --state 1 --pad 40 --pad-dir both
+🤖🎲 Picked rule 133
+                    X                   
+XXXXXXXXXXXXXXXXXXX X XXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXXXXXXXX  X  XXXXXXXXXXXXXXXXX
+XXXXXXXXXXXXXXXXX   X   XXXXXXXXXXXXXXXX
+XXXXXXXXXXXXXXXX  X X X  XXXXXXXXXXXXXXX
+XXXXXXXXXXXXXXX   X X X   XXXXXXXXXXXXXX
+XXXXXXXXXXXXXX  X X X X X  XXXXXXXXXXXXX
+```
 **Example:** Use `--no-wrap` to prevent edges from wrapping. Compare the output of the 20th generation.
 ```
 ./elementary.py -s 1 -p 20 --counter
@@ -157,7 +170,6 @@ X  X  XXXXX X XX XXX|21
 
 ### Todo
 
-- add a --random-rule flag to pick a random rule between 0 and 255
 - allow setting the initial iteration that should actually be output
    --range 0 1000 = show-from show-to
 - add a --stats flag that outputs the number of iterations and how long it took to run (only makes sense w/ 0 delay...)

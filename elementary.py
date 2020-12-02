@@ -54,13 +54,22 @@ def main(args):
     if args.state is not None and args.random is not None:
         sys.exit("🤖🔥 Error: Do not set --state and --random at the same time.")
 
+    # random seed
+    if args.seed is not None:
+        random.seed(args.seed)
+
+    # generate rules
+    rule = args.rule
+    if args.random_rule:
+        rule = random.randint(0, 255)
+        print("🤖🎲 Picked rule " + str(rule))
+    rules = build_rules(rule)
+
     # initial state
     state = ""
     if args.state is not None:
         state = args.state
     elif args.random is not None:
-        if args.seed is not None:
-            random.seed(args.seed)
         for i in range(0, args.random):
             state = str(random.randint(0, 1)) + state
     while not state or not is_binary_string(state):
@@ -79,8 +88,7 @@ def main(args):
     off_char = args.off[0]
     on_char = args.on[0]
 
-    # rules
-    rules = build_rules(args.rule)
+    # wrapping
     wrap = args.wrap
 
     # loop
@@ -144,6 +152,13 @@ parser.add_argument(
 parser.add_argument(
     "--random", help="generate random starting state of N length", type=int
 )
+parser.add_argument(
+    "--random-rule",
+    dest="random_rule",
+    action="store_true",
+    help="pick a rule at random",
+)
+parser.set_defaults(random_rule=False)
 parser.add_argument(
     "--seed", help="set the base seed for the random number generator", type=int
 )
