@@ -99,10 +99,10 @@ parser.add_argument('-r', '--rule', default=110, help='set the rule to use (betw
 parser.add_argument('-s', '--state', help='set the initial state (e.g. --state 01101110)', type=str)
 parser.add_argument('-p', '--pad', default=0, help='pads the initial state (with zeroes) to this length (e.g. --pad=20)'
                     , type=int)
-parser.add_argument('-d', '--pad-dir', default='left', help='sets how to apply padding (left, right, or both)',
+parser.add_argument('-d', '--pad-dir', default='left', help='sets how to apply padding: left (default), right, or both',
                     choices=['left', 'right', 'both'])
-parser.add_argument('--delay', default=250, help='delay between displaying each generation in milliseconds ('
-                                                       'defaults to 250 ms)',
+parser.add_argument('--delay', default=250, help='delay between displaying each generation in milliseconds (defaults to'
+                                                 ' 250 ms)',
                     type=int)
 parser.add_argument('--counter', dest='counter', action='store_true', help='show the iteration count')
 parser.set_defaults(counter=False)

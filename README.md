@@ -1,6 +1,6 @@
 # Elementary, Dear Automaton
 
-Python is the de facto ✨💡🤖 _language of science_ 🔬🧪✨. As a self-directed learning exercise, I'm working on this Python implementation of an [elementary cellular automaton](https://en.wikipedia.org/wiki/Elementary_cellular_automaton).
+Python is the de facto ✨💡🤖 _language of science_ 🔬🧪✨. As a self-directed learning exercise, I'm working on this Python implementation of the 255 [elementary cellular automatons](https://en.wikipedia.org/wiki/Elementary_cellular_automaton).
 
 The current implementation stores and manipulates state as a string, which is assumedly inefficient. Once I've finished with other bits and bobs, I'll compare the performance of this to using integer arrays or bytes.
 
@@ -17,7 +17,7 @@ optional arguments:
                         set the initial state (e.g. --state 01101110)
   -p PAD, --pad PAD     pads the initial state (with zeroes) to this length (e.g. --pad=20)
   -d {left,right,both}, --pad-dir {left,right,both}
-                        sets how to apply padding (left, right, or both)
+                        sets how to apply padding: left (default), right, or both
   --delay DELAY         delay between displaying each generation in milliseconds (defaults to 250 ms)
   --counter             show the iteration count
   --off OFF             character to show when a cell is off (defaults to a blank space)
@@ -88,7 +88,7 @@ optional arguments:
 💦🐙🐙🐙💦💦💦💦💦🐙🐙💦💦🐙💦🐙🐙🐙🐙🐙
 🐙🐙💦🐙💦💦💦💦🐙🐙🐙💦🐙🐙🐙🐙💦💦💦🐙
 ```
-**Example:** Use `--rule` to set the rule (any value from 0 to 255), and use --pad and --pad-dir to quickly set your starting state.
+**Example:** Use `--rule` to set the rule (any value from 0 to 255), and use `--pad` and `--pad-dir` to quickly set the starting state.
 ```
 ./elementary.py --state 1 --rule 30 --no-wrap --pad 20 --pad-dir left
                    X
@@ -155,11 +155,8 @@ XXXX   XX XXX  X  XX|20
 X  X  XXXXX X XX XXX|21
 ```
 
-### Status and todo
+### Todo
 
-Currently only implements [Rule 110](https://en.wikipedia.org/wiki/Rule_110) and renders to console.
-
-**Todo:**
 - add a --random-rule flag to pick a random rule between 0 and 255
 - allow setting the initial iteration that should actually be output
    --range 0 1000 = show-from show-to
