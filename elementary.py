@@ -77,11 +77,11 @@ def main(args):
 
     # padding initial state
     required_padding = max(args.pad - len(state), 0)
-    direction = args.pad_dir
+    side = args.pad_side
     for i in range(0, required_padding):
-        if direction == "left" or (direction == "both" and i % 2 == 0):
+        if side == "left" or (side == "both" and i % 2 == 0):
             state = "0" + state
-        elif direction == "right" or (direction == "both" and i % 2 == 1):
+        elif side == "right" or (side == "both" and i % 2 == 1):
             state = state + "0"
 
     # characters for console rendering
@@ -120,10 +120,10 @@ parser.add_argument(
     type=int,
 )
 parser.add_argument(
-    "-d",
-    "--pad-dir",
+    "-d",  # for direction...
+    "--pad-side",
     default="left",
-    help="sets how to apply padding: left (default), right, or both",
+    help="set which side to pad the initial state: left (default), right, or both",
     choices=["left", "right", "both"],
 )
 parser.add_argument(

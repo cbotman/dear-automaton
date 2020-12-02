@@ -16,8 +16,8 @@ optional arguments:
   -s STATE, --state STATE
                         set the initial state (e.g. --state 01101110)
   -p PAD, --pad PAD     pads the initial state (with zeroes) to this length (e.g. --pad=20)
-  -d {left,right,both}, --pad-dir {left,right,both}
-                        sets how to apply padding: left (default), right, or both
+  -d {left,right,both}, --pad-side {left,right,both}
+                        set which side to pad the initial state: left (default), right, or both
   --delay DELAY         delay between displaying each generation in milliseconds (defaults to 250 ms)
   --counter             show the iteration count
   --off OFF             character to show when a cell is off (defaults to a blank space)
@@ -89,23 +89,23 @@ optional arguments:
 💦🐙🐙🐙💦💦💦💦💦🐙🐙💦💦🐙💦🐙🐙🐙🐙🐙
 🐙🐙💦🐙💦💦💦💦🐙🐙🐙💦🐙🐙🐙🐙💦💦💦🐙
 ```
-**Example:** Use `--rule` to set the rule (any value from 0 to 255), and use `--pad` and `--pad-dir` to quickly set the starting state.
+**Example:** Use `--rule` to set the rule (any value from 0 to 255), and use `--pad` and `--pad-side` to quickly set the starting state.
 ```
-./elementary.py --state 1 --rule 30 --no-wrap --pad 20 --pad-dir left
+./elementary.py --state 1 --rule 30 --no-wrap --pad 20 --pad-side left
                    X
                   XX
                  XX 
                 XX X
                XX  X
 
-./elementary.py --state 1 --rule 30 --no-wrap --pad 20 --pad-dir right
+./elementary.py --state 1 --rule 30 --no-wrap --pad 20 --pad-side right
 X                   
 XX                  
 X X                 
 X XX                
 X X X               
 
-./elementary.py --state 1 --rule 30 --no-wrap --pad 20 --pad-dir both 
+./elementary.py --state 1 --rule 30 --no-wrap --pad 20 --pad-side both 
           X         
          XXX        
         XX  X       
@@ -145,7 +145,7 @@ XXX    XX   XXXXX X |5
 ```
 **Example:** Use `--random-rule` to pick a rule at random.
 ```
-./elementary.py --random-rule --state 1 --pad 40 --pad-dir both
+./elementary.py --random-rule --state 1 --pad 40 --pad-side both
 🤖🎲 Picked rule 133
                     X                   
 XXXXXXXXXXXXXXXXXXX X XXXXXXXXXXXXXXXXXX
