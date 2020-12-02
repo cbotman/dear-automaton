@@ -103,14 +103,18 @@ def main(args):
 
 parser = argparse.ArgumentParser()
 parser.add_argument(
+    "state",
+    metavar="STATE",
+    type=str,
+    nargs="?",
+    help="set the initial state (e.g. 01101110)",
+)
+parser.add_argument(
     "-r",
     "--rule",
     default=110,
     help="set the rule to use (between 0 to 255, inclusive). defaults to " "rule 110",
     type=int,
-)
-parser.add_argument(
-    "-s", "--state", help="set the initial state (e.g. --state 01101110)", type=str
 )
 parser.add_argument(
     "-p",

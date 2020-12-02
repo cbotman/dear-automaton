@@ -8,13 +8,14 @@ The current implementation stores and manipulates state as a string, which is as
 
 Run `./elementary.py` and follow the prompts, or run `./elementary.py -h` for help:
 ```
-usage: elementary.py [-h] [-r RULE] [-s STATE] [-p PAD] [-d {left,right,both}] [--delay DELAY] [--counter] [--off OFF] [--on ON] [--random RANDOM] [--random-rule] [--seed SEED] [--no-wrap]
+usage: elementary.py [-h] [-r RULE] [-p PAD] [-d {left,right,both}] [--delay DELAY] [--counter] [--off OFF] [--on ON] [--random RANDOM] [--random-rule] [--seed SEED] [--no-wrap] [STATE]
+
+positional arguments:
+  STATE                 set the initial state (e.g. 01101110)
 
 optional arguments:
   -h, --help            show this help message and exit
   -r RULE, --rule RULE  set the rule to use (between 0 to 255, inclusive). defaults to rule 110
-  -s STATE, --state STATE
-                        set the initial state (e.g. --state 01101110)
   -p PAD, --pad PAD     pads the initial state (with zeroes) to this length (e.g. --pad=20)
   -d {left,right,both}, --pad-side {left,right,both}
                         set which side to pad the initial state: left (default), right, or both
@@ -29,7 +30,7 @@ optional arguments:
 ```
 **Example:** Set the initial state (19 zeros and a one):
 ```
-./elementary.py --state 1 --pad 20
+./elementary.py 1 --pad 20
                    X
                   XX
                  XXX
@@ -43,7 +44,7 @@ optional arguments:
 ```
 **Example:** Emojis
 ```
-./elementary.py -s 1 -p 20 --on=🌲 --off=🌳
+./elementary.py 1 -p 20 --on=🌲 --off=🌳
 🌳🌳🌳🌳🌳🌳🌳🌳🌳🌳🌳🌳🌳🌳🌳🌳🌳🌳🌳🌲
 🌳🌳🌳🌳🌳🌳🌳🌳🌳🌳🌳🌳🌳🌳🌳🌳🌳🌳🌲🌲
 🌳🌳🌳🌳🌳🌳🌳🌳🌳🌳🌳🌳🌳🌳🌳🌳🌳🌲🌲🌲
@@ -67,7 +68,7 @@ optional arguments:
 ```
 **Example:** More emojis
 ```
-./elementary.py -s 1 -p 20 --on=🐙 --off=💦
+./elementary.py 1 -p 20 --on=🐙 --off=💦
 💦💦💦💦💦💦💦💦💦💦💦💦💦💦💦💦💦💦💦🐙
 💦💦💦💦💦💦💦💦💦💦💦💦💦💦💦💦💦💦🐙🐙
 💦💦💦💦💦💦💦💦💦💦💦💦💦💦💦💦💦🐙🐙🐙
@@ -91,21 +92,21 @@ optional arguments:
 ```
 **Example:** Use `--rule` to set the rule (any value from 0 to 255), and use `--pad` and `--pad-side` to quickly set the starting state.
 ```
-./elementary.py --state 1 --rule 30 --no-wrap --pad 20 --pad-side left
+./elementary.py 1 --rule 30 --no-wrap --pad 20 --pad-side left
                    X
                   XX
                  XX 
                 XX X
                XX  X
 
-./elementary.py --state 1 --rule 30 --no-wrap --pad 20 --pad-side right
+./elementary.py 1 --rule 30 --no-wrap --pad 20 --pad-side right
 X                   
 XX                  
 X X                 
 X XX                
 X X X               
 
-./elementary.py --state 1 --rule 30 --no-wrap --pad 20 --pad-side both 
+./elementary.py 1 --rule 30 --no-wrap --pad 20 --pad-side both 
           X         
          XXX        
         XX  X       
@@ -145,7 +146,7 @@ XXX    XX   XXXXX X |5
 ```
 **Example:** Use `--random-rule` to pick a rule at random.
 ```
-./elementary.py --random-rule --state 1 --pad 40 --pad-side both
+./elementary.py 1 --random-rule --pad 40 --pad-side both
 🤖🎲 Picked rule 133
                     X                   
 XXXXXXXXXXXXXXXXXXX X XXXXXXXXXXXXXXXXXX
@@ -157,23 +158,21 @@ XXXXXXXXXXXXXX  X X X X X  XXXXXXXXXXXXX
 ```
 **Example:** Use `--no-wrap` to prevent edges from wrapping. Compare the output of the 20th generation.
 ```
-./elementary.py -s 1 -p 20 --counter
+./elementary.py 1 -p 20 --counter
 XX X    XXX XXXX   X|19
  XXX   XX XXX  X  XX|20
 XX X  XXXXX X XX XXX|21
 
- ./elementary.py -s 1 -p 20 --counter --no-wrap
+ ./elementary.py 1 -p 20 --counter --no-wrap
 XX X    XXX XXXX   X|19
 XXXX   XX XXX  X  XX|20
 X  X  XXXXX X XX XXX|21
 ```
 
 ### Todo
-
 - allow setting the initial iteration that should actually be output
    --range 0 1000 = show-from show-to
 - add a --stats flag that outputs the number of iterations and how long it took to run (only makes sense w/ 0 delay...)
-- allow piping in the initial state. e.g. 000010 | elementary.py and ./elementary.py 000010 
 - allow saving state to file and resuming from save (periodically or when exit). 
     this would be more like a json blob that includes recent history, and not just the last generation
 - allow outputting to image e.g. -output 110.png (only valid when capped number iterations via range)
