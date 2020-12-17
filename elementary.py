@@ -53,6 +53,10 @@ def main(args):
         sys.exit("🤖🔥 Error: --rule must be between 0 and 255, inclusive.")
     if args.state is not None and args.random is not None:
         sys.exit("🤖🔥 Error: Do not set --state and --random at the same time.")
+    if args.start < 0:
+        sys.exit("🤖🔥 Error: --start must be a positive number or 0.")
+    if args.end < args.start and args.end != -1:
+        sys.exit("🤖🔥 Error: --end must be equal to greater than --start (or -1).")
 
     # random seed
     if args.seed is not None:
@@ -94,11 +98,16 @@ def main(args):
     # loop
     generation = 0
     delay = args.delay / 1000
+    show_from = args.start
+    stop_at = args.end
     while True:
-        render(state, generation if args.counter else -1, off_char, on_char)
+        if generation >= show_from:
+            sleep(delay)
+            render(state, generation if args.counter else -1, off_char, on_char)
+        if stop_at != -1 and generation >= stop_at:
+            sys.exit(0)
         state = update_state(state, rules, wrap)
         generation = generation + 1
-        sleep(delay)
 
 
 parser = argparse.ArgumentParser()
@@ -113,7 +122,7 @@ parser.add_argument(
     "-r",
     "--rule",
     default=110,
-    help="set the rule to use (between 0 to 255, inclusive). defaults to " "rule 110",
+    help="set the rule to use (between 0 to 255, inclusive). defaults to rule 110",
     type=int,
 )
 parser.add_argument(
@@ -170,6 +179,20 @@ parser.add_argument(
     "--no-wrap", dest="wrap", action="store_false", help="prevent edges wrapping"
 )
 parser.set_defaults(wrap=True)
+parser.add_argument(
+    "-s",
+    "--start",
+    default=0,
+    help="set the generation to start rendering from, inclusive (e.g. --start 10). initial state is generation 0.",
+    type=int,
+)
+parser.add_argument(
+    "-e",
+    "--end",
+    default=-1,
+    help="set generation to stop at (-1 = unlimited). must be equal or greater than --start (or -1)",
+    type=int,
+)
 
 if __name__ == "__main__":
     args = parser.parse_args()

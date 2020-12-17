@@ -8,7 +8,8 @@ The current implementation stores and manipulates state as a string, which is as
 
 Run `./elementary.py` and follow the prompts, or run `./elementary.py -h` for help:
 ```
-usage: elementary.py [-h] [-r RULE] [-p PAD] [-d {left,right,both}] [--delay DELAY] [--counter] [--off OFF] [--on ON] [--random RANDOM] [--random-rule] [--seed SEED] [--no-wrap] [STATE]
+usage: elementary.py [-h] [-r RULE] [-p PAD] [-d {left,right,both}] [--delay DELAY] [--counter] [--off OFF] [--on ON] [--random RANDOM] [--random-rule] [--seed SEED] [--no-wrap] [-s START] [-e END]
+                     [STATE]
 
 positional arguments:
   STATE                 set the initial state (e.g. 01101110)
@@ -27,6 +28,9 @@ optional arguments:
   --random-rule         pick a rule at random
   --seed SEED           set the base seed for the random number generator
   --no-wrap             prevent edges wrapping
+  -s START, --start START
+                        set the generation to start rendering from, inclusive (e.g. --start 10). initial state is generation 0.
+  -e END, --end END     set generation to stop at (-1 = unlimited). must be equal or greater than --start (or -1)
 ```
 **Example:** Set the initial state (19 zeros and a one):
 ```
@@ -168,13 +172,27 @@ XX X    XXX XXXX   X|19
 XXXX   XX XXX  X  XX|20
 X  X  XXXXX X XX XXX|21
 ```
+**Example:** Use `--start` to only render from a given generation. Use `--end` to limit how many generations to calculate.
+```
+./elementary.py 1 -p 20 --counter --start 5
+              XX   X|5
+             XXX  XX|6
+            XX X XXX|7
+           XXXXXXX X|8
+          XX     XXX|9
+./elementary.py 1 -p 20 --counter --end 3
+                   X|0
+                  XX|1
+                 XXX|2
+                XX X|3
+./elementary.py 1 -p 20 --counter --start 7 --end 7
+            XX X XXX|7
+```
 
 ### Todo
-- allow setting the initial iteration that should actually be output
-   --range 0 1000 = show-from show-to
 - add a --stats flag that outputs the number of iterations and how long it took to run (only makes sense w/ 0 delay...)
-- allow saving state to file and resuming from save (periodically or when exit). 
-    this would be more like a json blob that includes recent history, and not just the last generation
 - allow outputting to image e.g. -output 110.png (only valid when capped number iterations via range)
-- move from strings to integer arrays and then bytes to be ⚡️?
+- move from strings to bytes to be ⚡️
 - add a flag to exit if pattern stabilises (repeats itself indefinitely) (e.g. --limit-repeats 3). need an associated parameter to set how much history to keep in memory.
+- allow saving state to file and resuming from save (periodically or when exit).
+  this would be more like a json blob that includes recent history, and not just the last generation
