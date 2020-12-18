@@ -191,8 +191,9 @@ X  X  XXXXX X XX XXX|21
 
 ### Todo
 - add a --stats flag that outputs the number of iterations and how long it took to run (only makes sense w/ 0 delay...)
-- allow outputting to image e.g. -output 110.png (only valid when capped number iterations via range)
 - move from strings to bytes to be ⚡️
-- add a flag to exit if pattern stabilises (repeats itself indefinitely) (e.g. --limit-repeats 3). need an associated parameter to set how much history to keep in memory.
+- add a flag to exit if output ever repeats. could eventually run into memory limits
+- allow outputting to image e.g. -output 110.png (only valid when capped number iterations via range)
+    - params could be output_path, on_hex, off_hex, cell_width (pixels), cell_height (pixels)
 - allow saving state to file and resuming from save (periodically or when exit).
-  this would be more like a json blob that includes recent history, and not just the last generation
+  this would be more like a json blob that includes history, and not just the last generation
