@@ -8,8 +8,7 @@ The current implementation stores and manipulates state as a string, which is as
 
 Run `./elementary.py` and follow the prompts, or run `./elementary.py -h` for help:
 ```
-usage: elementary.py [-h] [-r RULE] [-p PAD] [-d {left,right,both}] [--delay DELAY] [--counter] [--off OFF] [--on ON] [--random RANDOM] [--random-rule] [--seed SEED] [--no-wrap] [-s START] [-e END]
-                     [STATE]
+usage: elementary.py [-h] [-r RULE] [-p PAD] [-d {left,right,both}] [--delay DELAY] [--counter] [--off OFF] [--on ON] [--random RANDOM] [--random-rule] [--seed SEED] [--no-wrap] [-s START] [-e END] [-l LIMIT] [--stats] [STATE]
 
 positional arguments:
   STATE                 set the initial state (e.g. 01101110)
@@ -30,7 +29,10 @@ optional arguments:
   --no-wrap             prevent edges wrapping
   -s START, --start START
                         set the generation to start rendering from, inclusive (e.g. --start 10). initial state is generation 0.
-  -e END, --end END     set generation to stop at (-1 = unlimited). must be equal or greater than --start (or -1)
+  -e END, --end END     set generation to stop at (-1 = unlimited). must be equal or greater than --start if set.
+  -l LIMIT, --limit LIMIT
+                        set maximum number of generations to render (0 = unlimited). similar to --end.
+  --stats               output stats on exit
 ```
 **Example:** Set the initial state (19 zeros and a one):
 ```
