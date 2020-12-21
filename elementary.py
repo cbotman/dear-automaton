@@ -1,8 +1,12 @@
 #!/usr/bin/env python3
-from time import sleep
+from time import sleep, time
 import argparse
 import random
 import sys
+
+
+generation = 0
+start_time = time()
 
 
 def is_binary_string(string):
@@ -47,7 +51,17 @@ def render(value, generation, off_char, on_char):
     print(output)
 
 
+def render_stats():
+    global generation
+    global start_time
+    print("🤖📈 Stats:")
+    print("Generation(s) calculated: " + str(generation))
+    print("Duration: " + str(time() - start_time) + " seconds")
+
+
 def main(args):
+    global generation
+
     # validate args
     if args.rule is not None and (args.rule < 0 or args.rule > 255):
         sys.exit("🤖🔥 Error: --rule must be between 0 and 255, inclusive.")
@@ -55,8 +69,12 @@ def main(args):
         sys.exit("🤖🔥 Error: Do not set --state and --random at the same time.")
     if args.start < 0:
         sys.exit("🤖🔥 Error: --start must be a positive number or 0.")
+    if args.end != -1 and args.limit != 0:
+        sys.exit("🤖🔥 Error: Do not set --end and --limit at the same time.")
     if args.end < args.start and args.end != -1:
         sys.exit("🤖🔥 Error: --end must be equal to greater than --start (or -1).")
+    if args.limit < 0:
+        sys.exit("🤖🔥 Error: --limit must be a positive number.")
 
     # random seed
     if args.seed is not None:
@@ -95,16 +113,21 @@ def main(args):
     # wrapping
     wrap = args.wrap
 
-    # loop
-    generation = 0
-    delay = args.delay / 1000
+    # rendering range
     show_from = args.start
     stop_at = args.end
+    if stop_at == -1 and args.limit != 0:
+        stop_at = show_from + args.limit - 1
+
+    # loop
+    delay = args.delay / 1000
     while True:
         if generation >= show_from:
             sleep(delay)
             render(state, generation if args.counter else -1, off_char, on_char)
         if stop_at != -1 and generation >= stop_at:
+            if args.show_stats:
+                render_stats()
             sys.exit(0)
         state = update_state(state, rules, wrap)
         generation = generation + 1
@@ -190,13 +213,29 @@ parser.add_argument(
     "-e",
     "--end",
     default=-1,
-    help="set generation to stop at (-1 = unlimited). must be equal or greater than --start (or -1)",
+    help="set generation to stop at (-1 = unlimited). must be equal or greater than --start if set.",
     type=int,
 )
+parser.add_argument(
+    "-l",
+    "--limit",
+    default=0,
+    help="set maximum number of generations to render (0 = unlimited). similar to --end.",
+    type=int,
+)
+parser.add_argument(
+    "--stats",
+    dest="show_stats",
+    action="store_true",
+    help="output stats on exit",
+)
+parser.set_defaults(show_stats=False)
 
 if __name__ == "__main__":
     args = parser.parse_args()
     try:
         main(args)
     except KeyboardInterrupt:
+        if args.show_stats:
+            render_stats()
         sys.exit(0)

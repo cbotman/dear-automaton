@@ -172,7 +172,7 @@ XX X    XXX XXXX   X|19
 XXXX   XX XXX  X  XX|20
 X  X  XXXXX X XX XXX|21
 ```
-**Example:** Use `--start` to only render from a given generation. Use `--end` to limit how many generations to calculate.
+**Example:** Use `--start` to only render from a given generation. Use `--end` to limit how many generations to calculate. `--limit` is similar to `--end` but sets the maximum number of generations to render.
 ```
 ./elementary.py 1 -p 20 --counter --start 5
               XX   X|5
@@ -187,11 +187,25 @@ X  X  XXXXX X XX XXX|21
                 XX X|3
 ./elementary.py 1 -p 20 --counter --start 7 --end 7
             XX X XXX|7
+./elementary.py 1 -p 20 --counter --start 7 --limit 1
+            XX X XXX|7
+./elementary.py 1 -p 20 --counter --start 7 --limit 4
+            XX X XXX|7
+           XXXXXXX X|8
+          XX     XXX|9
+         XXX    XX X|10
+```
+**Example:** Use `--stats` to see the runtime duration, and number of generations calculated. Best combined with `--delay 0`.
+```
+./elementary.py 1 -p 20 --stats --start 100000 --limit 1 --delay 0
+X  XX X  XX XXXXX   
+🤖📈 Stats:
+Generation(s) calculated: 100000
+Duration: 1.0507159233093262 seconds
 ```
 
 ### Todo
-- add a --stats flag that outputs the number of iterations and how long it took to run (only makes sense w/ 0 delay...)
-- move from strings to bytes to be ⚡️
+- move from strings to bitwise operations to be ⚡️
 - add a flag to exit if output ever repeats. could eventually run into memory limits
 - allow outputting to image e.g. -output 110.png (only valid when capped number iterations via range)
     - params could be output_path, on_hex, off_hex, cell_width (pixels), cell_height (pixels)
